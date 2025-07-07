@@ -5,7 +5,7 @@
  * -----------------------------------
  * This tool wraps OpenAI’s DALL·E 3 endpoint, turning any text prompt into
  * one or more image URLs. Below, each section is annotated so you can walk
- * students through the purpose and structure of a TFP tool.
+ * through the purpose and structure of a TFP tool.
  * 
  * Quick Test with curl
 
