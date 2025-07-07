@@ -8,7 +8,7 @@ import { descriptor as chatDesc, handler as chatHandler } from './tools/llmChat'
 import { descriptor as ragDesc, handler as ragHandler } from './tools/ragSearch';
 import { descriptor as addDocDesc, handler as addDocHandler } from './tools/ragAddDoc';
 import { descriptor as headlineDesc, handler as headlineHandler } from './tools/headlineGenerator';
-import { register } from 'module';
+import { descriptor as imageDesc, handler as imageHandler } from './tools/imageGenerator';
 
 
 
@@ -32,6 +32,7 @@ registerTool(chatDesc, chatHandler);
 registerTool(ragDesc, ragHandler);
 registerTool(addDocDesc, addDocHandler);
 registerTool(headlineDesc, headlineHandler);
+registerTool(imageDesc, imageHandler);
 
 
 /* ---------------- Endpoints ----------------- */
