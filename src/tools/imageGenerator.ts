@@ -16,7 +16,7 @@ curl -X POST http://localhost:3000/tfp/invoke \
            "input":{
              "prompt":"A futuristic city skyline at sunset",
              "n":2,
-             "size":"512x512"
+             "size":"1024x1024"
            }
          }'
 
@@ -47,7 +47,6 @@ import OpenAI from 'openai';
  */
 export const inputSchema = z.object({
   prompt: z.string(),                                            // required text
-  n:      z.number().int().min(1).max(4).default(1),             // optional; defaults to 1
   size:   z.enum(['256x256','512x512','1024x1024']).default('1024x1024') 
 });
 
@@ -120,20 +119,14 @@ const openai = new OpenAI({
  * @returns      { urls: string[] }
  */
 export async function handler(input: z.infer<typeof inputSchema>) {
-  // a) Invoke the DALL·E API
-  const res = await openai.images.generate({
-    prompt: input.prompt,    // the text prompt
-    n:      input.n,         // how many images
-    size:   input.size       // image resolution
-  });
-
-  // b) res.data is an array of objects { url?: string }
-  //    Use optional chaining + filter(Boolean) to drop any nulls
-  const urls = res.data
-    ?.map(img => img.url)    // extract the .url field
-    .filter(Boolean)         // remove undefined/null entries
-    ?? [];                   // fallback to empty array if res.data is nullish
-
-  // c) Return in the shape defined by outputSchema
-  return { urls };
-}
+    const res = await openai.images.generate({
+      model: process.env.OPENAI_IMAGE_MODEL || 'dall-e-3', // guarantee DALL·E 3
+      prompt: input.prompt,
+      n: 1, // Only 1 allowed
+      size: input.size
+    });
+  
+    const urls = res.data?.map(img => img.url).filter(Boolean) ?? [];
+    return { urls };
+  }
+  
