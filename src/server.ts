@@ -1,7 +1,6 @@
 
 import express, { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
-import { z } from 'zod';
 import { ToolDescriptor, CallToolRequestSchema, CallToolSuccessSchema, CallToolErrorSchema } from './protocol/types';
 import { descriptor as echoDescriptor, handler as echoHandler } from './tools/echo';
 import { descriptor as chatDesc, handler as chatHandler } from './tools/llmChat';
@@ -9,6 +8,7 @@ import { descriptor as ragDesc, handler as ragHandler } from './tools/ragSearch'
 import { descriptor as addDocDesc, handler as addDocHandler } from './tools/ragAddDoc';
 import { descriptor as headlineDesc, handler as headlineHandler } from './tools/headlineGenerator';
 import { descriptor as imageDesc, handler as imageHandler } from './tools/imageGenerator';
+import { descriptor as docIngestPathDesc, handler as docIngestPathHandler } from './tools/docIngestPath';
 
 
 
@@ -33,6 +33,7 @@ registerTool(ragDesc, ragHandler);
 registerTool(addDocDesc, addDocHandler);
 registerTool(headlineDesc, headlineHandler);
 registerTool(imageDesc, imageHandler);
+registerTool(docIngestPathDesc, docIngestPathHandler);
 
 
 /* ---------------- Endpoints ----------------- */

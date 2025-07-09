@@ -14,3 +14,4 @@ export async function embedOpenAI(text: string, model = process.env.OPENAI_EMBED
   const e = await openai.embeddings.create({ model, input: text });
   return e.data[0].embedding;
 }
+
